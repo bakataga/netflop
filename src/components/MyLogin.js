@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MyForm from "./MyForm";
 
 const MyLogin = ({ onLogin }) => {
@@ -19,7 +19,9 @@ const MyLogin = ({ onLogin }) => {
 
   const handleLogin = (formData) => {
     const { email, password } = formData;
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = { email: "example@example.com", password: "password123" };
+    localStorage.setItem("user", JSON.stringify(user));
+
     if (user && user.email === email && user.password === password) {
       onLogin(true);
       alert("Connexion réussie !");
@@ -30,8 +32,7 @@ const MyLogin = ({ onLogin }) => {
 
   return (
     <div className="bg-gray-900 py-16">
-      <div className="container mx-auto px-4"></div>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto px-4">
         <h1 className="text-2xl text-white font-bold mb-4">Se connecter</h1>
         <MyForm fields={fields} onSubmit={handleLogin} />
       </div>

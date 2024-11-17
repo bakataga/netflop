@@ -71,14 +71,17 @@ const App = () => {
   };
 
   /* recupere les donnees des films en fonction des searchvalue */
-  const getMovieRequest = async function (searchValue) {
-    const url = `http://www.omdbapi.com/?i=${id}&apikey=6076ccbb`;
+  const getMovieRequest = async (searchValue) => {
+    const url = `http://www.omdbapi.com/?s=Inception&apikey=6076ccbb`;
     const response = await fetch(url);
     const responseJson = await response.json();
 
-    if (responseJson.Search) {
+    /* Vérifiez si la réponse contient des films */
+    if (responseJson && responseJson.Search) {
       const shuffledMovies = shuffleArray(responseJson.Search);
       setMovies(shuffledMovies);
+    } else {
+      console.error("Aucun film trouvé ou erreur dans la réponse de l'API");
     }
   };
 
@@ -90,12 +93,9 @@ const App = () => {
   }, [searchValue]);
 
   useEffect(() => {
-    const movieFavourites = JSON.parse(
-      localStorage.getItem(`react-movie-app-favourites`)
-    );
-
+    const movieFavourites = localStorage.getItem("react-movie-app-favourites");
     if (movieFavourites) {
-      setFavourites(movieFavourites);
+      setFavourites(JSON.parse(movieFavourites));
     }
   }, []);
 
@@ -128,7 +128,6 @@ const App = () => {
 
   return (
     <Router>
-      {" "}
       <div className="container mx-auto p-4 movie-app">
         <NavBar
           brandName="MyNetflop"
@@ -163,7 +162,7 @@ const App = () => {
                     movies={favourites}
                     handleFavouritesClick={removeFavouriteMovie}
                     favouriteComponent={RemoveFavourites}
-                  />{" "}
+                  />
                 </>
               }
             />

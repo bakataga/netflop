@@ -1,17 +1,16 @@
-import React from 'react';
+import React from "react";
 
 const SearchBox = ({ searchValue, setSearchValue }) => {
   return (
-    <div className='col col-sm-4'>
+    <div className="col col-sm-4">
       <input
-        className='form-control'
+        className="form-control"
         value={searchValue}
         onChange={(event) => setSearchValue(event.target.value)}
-        placeholder='Type to search...'
-      ></input>
+        placeholder="Type to search..."
+      />
     </div>
   );
 };
 
 export default SearchBox;
-

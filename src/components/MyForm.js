@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const MyForm = ({ fields, onSubmit }) => {
   const [formData, setFormData] = useState(
     fields.reduce((acc, field) => {
-      acc[field.name] = '';
+      acc[field.name] = "";
       return acc;
     }, {})
   );
@@ -22,10 +22,18 @@ const MyForm = ({ fields, onSubmit }) => {
     const newErrors = {};
     fields.forEach((field) => {
       if (!formData[field.name]) {
-        newErrors[field.name] = `${field.label} is required`;
-      } else if (field.type === 'email' && !/\S+@\S+\.\S+/.test(formData[field.name])) {
-        newErrors[field.name] = 'Invalid email address';
-      }else if (field.name === 'comfirm-password' && formData['password'] !== formData['comfirm-password']) { newErrors[field.name] = 'Passwords do not match'; }
+        newErrors[field.name] = `${field.label} est requis`;
+      } else if (
+        field.type === "email" &&
+        !/\S+@\S+\.\S+/.test(formData[field.name])
+      ) {
+        newErrors[field.name] = "Adresse email invalide";
+      } else if (
+        field.name === "confirm-password" &&
+        formData["password"] !== formData["confirm-password"]
+      ) {
+        newErrors[field.name] = "Les mots de passe ne correspondent pas";
+      }
     });
     return newErrors;
   };
@@ -48,7 +56,7 @@ const MyForm = ({ fields, onSubmit }) => {
           <label htmlFor={field.name} className="mb-2 font-bold text-slate-300">
             {field.label}
           </label>
-          {field.type === 'textarea' ? (
+          {field.type === "textarea" ? (
             <textarea
               name={field.name}
               value={formData[field.name]}
@@ -71,8 +79,11 @@ const MyForm = ({ fields, onSubmit }) => {
           )}
         </div>
       ))}
-      <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
-        Submit
+      <button
+        type="submit"
+        className="px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        Soumettre
       </button>
     </form>
   );
