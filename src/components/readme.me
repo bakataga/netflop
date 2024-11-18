@@ -7,3 +7,29 @@ L'utilisateur doit soit se connecter, soit s'abonner pour y accéder.
 est autorisé à effectuer (ici, accéder à l'onglet "movie").
 -États d'utilisateur: Des états pour représenter différents 
 types d'utilisateurs (non connecté, connecté, abonné).
+
+Gestion de l'état de connexion:
+
+État local: Utilisez un état local (par exemple, avec le hook useState) pour stocker l'état de connexion de l'utilisateur (connecté ou non).
+Stockage: Enregistrez cet état dans le local storage du navigateur pour le conserver entre les recharges de page.
+Authentification: Lorsque l'utilisateur se connecte, mettez à jour cet état et stockez un token d'authentification (si utilisé).
+Protection des routes:
+
+Route privée: Utilisez un composant personnalisé pour envelopper les routes qui nécessitent une authentification. Ce composant vérifie l'état de connexion et redirige l'utilisateur vers la page de connexion si nécessaire.
+Route publique: Les routes accessibles sans connexion (comme la page d'accueil ou la page de connexion) n'ont pas besoin de cette protection.
+
+
+<Routes>
+  <Route 
+    path="/MovieDetails/:id" 
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <MovieDetails />
+      </PrivateRoute>
+    } 
+  />
+  <Route path="/Register" element={<MyRegister />} />
+  <Route path="/Login" element={<MyLogin onLogin={handleLogin} />} />
+  <Route path="/Plan" element={<MyPlan plans={undefined} />} />
+  <Route path="*" element={<NoMatch />} />
+</Routes>

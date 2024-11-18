@@ -1,10 +1,6 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  NavLink,
-} from "react-router-dom";
+import React, { useState, useEffect, Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+/* import { createBrowserRouter, RouterProvider } from "react-router-dom"; */
 import "./index.css";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
@@ -20,8 +16,15 @@ import MyRegister from "./components/MyRegister";
 import MyLogin from "./components/MyLogin";
 import NoMatch from "./components/NoMatch";
 import MovieDetails from "./components/MovieDetails";
+import PrivateRoute from "./components/PrivateRoute";
+/* const router = createBrowserRouter(Routes, {
+  future: { v7_relativeSplatPath: true },
+}); */
 
 const App = () => {
+  {
+    /* <RouterProvider router={router} />; */
+  }
   /* stocke le tableau */
   const [movies, setMovies] = useState([]);
   /* stocke le tableau des films favorits */
@@ -72,7 +75,7 @@ const App = () => {
 
   /* recupere les donnees des films en fonction des searchvalue */
   const getMovieRequest = async (searchValue) => {
-    const url = `http://www.omdbapi.com/?s=Inception&apikey=6076ccbb`;
+    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=6076ccbb`;
     const response = await fetch(url);
     const responseJson = await response.json();
 
@@ -166,10 +169,18 @@ const App = () => {
                 </>
               }
             />
-            <Route path="/MovieDetails" element={<MovieDetails />} />
+            <Route
+              path={"/MovieList"}
+              element={
+                <PrivateRoute isLoggedIn={isLoggedIn}>
+                  <MovieDetails />
+                </PrivateRoute>
+              }
+            />
+
             <Route path="/Register" element={<MyRegister />} />
             <Route path="/Login" element={<MyLogin onLogin={handleLogin} />} />
-            <Route path="/Plan" element={<MyPlan plans={undefined} />} />
+            <Route path="/Plan" element={<MyPlan plans={[]} />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </Suspense>

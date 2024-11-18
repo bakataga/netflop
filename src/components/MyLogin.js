@@ -1,7 +1,9 @@
 import React from "react";
 import MyForm from "./MyForm";
+import { useNavigate } from "react-router-dom";
 
 const MyLogin = ({ onLogin }) => {
+  const navigate = useNavigate();
   const fields = [
     {
       name: "email",
@@ -25,11 +27,11 @@ const MyLogin = ({ onLogin }) => {
     if (user && user.email === email && user.password === password) {
       onLogin(true);
       alert("Connexion réussie !");
-    } else {
+    } else if (user && user.email !== email && user.password !== password) {
       alert("Email ou mot de passe incorrect");
     }
   };
-
+  navigate("/MyRegister");
   return (
     <div className="bg-gray-900 py-16">
       <div className="container mx-auto px-4">

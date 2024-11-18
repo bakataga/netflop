@@ -14,7 +14,6 @@ const MovieList = (props) => {
                   className="inline-block bg-gray-400 p-4 rounded-lg m-2"
                 >
                   <Link to={`/movie-details/${movie.imdbID}`}>
-                    {" "}
                     {/* Corrected path with hyphen */}
                     <img
                       src={movie.Poster}

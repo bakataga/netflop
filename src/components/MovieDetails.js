@@ -8,7 +8,7 @@ const MovieDetails = () => {
 
   useEffect(() => {
     const getMovieDetails = async () => {
-      const url = `http://www.omdbapi.com/?s=Inception&apikey=6076ccbb`;
+      const url = `http://www.omdbapi.com/?s=${id}&apikey=6076ccbb`;
       const response = await fetch(url);
       const responseJson = await response.json();
       console.log(getMovieDetails);

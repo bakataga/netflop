@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyRegister = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -53,6 +55,8 @@ const MyRegister = () => {
     const user = { username, email, password };
     localStorage.setItem("user", JSON.stringify(user));
     alert("Inscription réussie !");
+
+    navigate("/MovieList");
   };
 
   return (
