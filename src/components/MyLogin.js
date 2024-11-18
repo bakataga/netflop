@@ -32,14 +32,16 @@ const MyLogin = ({ onLogin }) => {
     }
   };
   navigate("/MyRegister");
-  return (
-    <div className="bg-gray-900 py-16">
-      <div className="container mx-auto px-4">
-        <h1 className="text-2xl text-white font-bold mb-4">Se connecter</h1>
-        <MyForm fields={fields} onSubmit={handleLogin} />
-      </div>
-    </div>
-  );
-};
 
+  function log(props) {
+    return (
+      <div className="bg-gray-900 py-16">
+        <div className="container mx-auto px-4">
+          <h1 className="text-2xl text-white font-bold mb-4">Se connecter</h1>
+          <MyForm fields={fields} onSubmit={handleLogin} />
+        </div>
+      </div>
+    );
+  }
+};
 export default MyLogin;
